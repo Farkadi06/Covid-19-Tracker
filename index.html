@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Leaflet Example - asmaloney.com</title>
+    <title>COVID-19 Tracker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link
@@ -31,9 +31,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;300;400&display=swap" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+    
+
   </head>
 
-  <body class="body">
+  <body>
       <div class="application">
        
         <div class="app__top">
@@ -45,99 +48,101 @@
             </div>
           </div>
 
+        
         </div>
 
-          <div class="application__center">
-              <div class="app__left">
+        <div class="application__center">
+          <div class="app__left">
 
-                <div class="top__left">
-                  <div class="btn-group">
-                    <button type="button" id="Cases" class="btn btn-danger">Cases</button>
-                    <button type="button" id="Recovered" class="btn btn-success">Recovered</button>
-                    <button type="button" id="deaths" class="btn btn-secondary">deaths</button>
-                  </div>
-                  
-                  <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Cases</h5>
-                      <p class="card-text DailyCases">+ --</p>
-                      <p class="card-text TotalCases">+ -- Total</p>
-                    </div>
-                  </div>
-                  <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Recovered</h5>
-                      <p class="card-text DailyRecovered">+ --</p>
-                      <p class="card-text TotalRecovered">+ -- Total</p>
-                    </div>
-                  </div>
-                  <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Deaths</h5>
-                      <p class="card-text DailyDeaths">+ --</p>
-                      <p class="card-text TotalDeaths">+ -- Total</p>
-                    </div>
-                  </div>
-                  <div class="btn-group dropend">
-                    <button id ="dropdownBtn" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      choose a country
-                    </button>
-                    <ul id="dropdownOptions" class="dropdown-menu">
-                        <!-- dropdown menu  -->
-                    </ul>
-                  </div>
-                </div>
-                
-                <div id="map" ></div>
+            <div class="top__left">
+              <div class="btn-group">
+                <button type="button" id="Cases" class="btn btn-danger">Cases</button>
+                <button type="button" id="Recovered" class="btn btn-success">Recovered</button>
+                <button type="button" id="deaths" class="btn btn-secondary">deaths</button>
               </div>
-
-              <div class="app__right">
-                <div class="chartR">
-                  <div>
-                    <canvas id="worldChart" style="width: 100%;"></canvas>
-                  </div>
+              
+              <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Cases</h5>
+                  <p class="card-text DailyCases">+ --</p>
+                  <p class="card-text TotalCases">+ -- Total</p>
                 </div>
-                <div class="charts">
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cases</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Recovered</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Deaths</button>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                      <div class="casesInfo" id="casesInfo">
-                        <div>
-                          <canvas id="CasesChart" style="width: 100%;"></canvas>
-                        </div>          
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                      <div class="recoveredInfo" id="recoveredInfo">
-                        <div>
-                          <canvas id="recoveredChart" style="width: 100%;"></canvas>
-                        </div>  
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                      <div class="deathsInfo" id="deathsInfo">
-                        <div>
-                          <canvas id="deathsChart" style="width: 100%;"></canvas>
-                        </div> 
-                      </div>
-                    </div>
-                  </div>
+              </div>
+              <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Recovered</h5>
+                  <p class="card-text DailyRecovered">+ --</p>
+                  <p class="card-text TotalRecovered">+ -- Total</p>
                 </div>
-               
               </div>
+              <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Deaths</h5>
+                  <p class="card-text DailyDeaths">+ --</p>
+                  <p class="card-text TotalDeaths">+ -- Total</p>
+                </div>
               </div>
+              <div class="btn-group dropend">
+                <button id ="dropdownBtn" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  choose a country
+                </button>
+                <ul id="dropdownOptions" class="dropdown-menu">
+                    <!-- dropdown menu  -->
+                </ul>
+              </div>
+            </div>
+            
+            <div id="map" ></div>
           </div>
-  </div>
+
+          <div class="app__right">
+            <div class="chartR">
+              <div>
+                <canvas id="worldChart" style="width: 100%;"></canvas>
+              </div>
+            </div>
+            <div class="charts">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cases</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Recovered</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Deaths</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <div class="casesInfo" id="casesInfo">
+                    <div>
+                      <canvas id="CasesChart" style="width: 100%;"></canvas>
+                    </div>          
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <div class="recoveredInfo" id="recoveredInfo">
+                    <div>
+                      <canvas id="recoveredChart" style="width: 100%;"></canvas>
+                    </div>  
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  <div class="deathsInfo" id="deathsInfo">
+                    <div>
+                      <canvas id="deathsChart" style="width: 100%;"></canvas>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          </div>
+      </div>
+    </div>
+      
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type='text/javascript' src='maps/leaf-demo.js'></script>
   </body>

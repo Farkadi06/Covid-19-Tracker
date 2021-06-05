@@ -28,6 +28,11 @@ const fetchdataCases = async() => {
       ));
 
       
+      basemaps.Topography.addTo(map);
+
+      var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/EHTP/wms', {
+      layers: 'Regions',
+      }).addTo(map);
 
       
       data.map(country => {
@@ -94,6 +99,14 @@ const fetchdataCases = async() => {
         value: country.countryInfo.iso2,
       }
       ));
+
+      
+      basemaps.Topography.addTo(map);
+
+      var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/EHTP/wms', {
+          layers: 'Regions',
+      }).addTo(map);
+      
       data.map(country => {
 
 
@@ -162,8 +175,12 @@ const fetchdataCases = async() => {
         value: country.countryInfo.iso2,
       }  
       ));
-
       
+basemaps.Topography.addTo(map);
+
+      var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/EHTP/wms', {
+        layers: 'Regions',
+    }).addTo(map);
 
       
       data.map(country => {
@@ -251,16 +268,11 @@ var basemaps = {
   })
 };
 
+
 L.control.layers(basemaps).addTo(map);
 
 
-
 basemaps.Topography.addTo(map);
-
-var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/EHTP/wms', {
-    layers: 'Regions',
-}).addTo(map);
-
 
 
 function onEachFeature(feature, layer) {
@@ -389,6 +401,7 @@ let printRevored = (dataa) => {
     document.getElementById('deathsChart'),
     config
   );
+  
 }
 
  /************Covid-19 WoldWide Chart*************/
