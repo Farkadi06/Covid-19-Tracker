@@ -3,7 +3,12 @@ var map = L.map('map', {
   center: [20.0, 5.0],
   minZoom: 2,
   zoom: 2,
+  fullscreenControl: {
+    pseudoFullscreen: false // if true, fullscreen to page width and height
+}
 })
+
+L.control.browserPrint().addTo(map)
 
 let Dataa;
 
@@ -145,6 +150,7 @@ const fetchdataCases = async() => {
     });
   };
 
+
   const fetchdataDeaths = async() => { 
     await fetch("https://disease.sh/v3/covid-19/countries")
     .then((response) => response.json())
@@ -215,23 +221,46 @@ const fetchdataCases = async() => {
     });
   };
 
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   subdomains: ['a', 'b', 'c'],
 }).addTo(map)
 
-var myURL = jQuery('script[src$="leaf-demo.js"]')
-  .attr('src')
-  .replace('leaf-demo.js', '')
-  
-var myIcon = L.icon({
-  iconUrl: myURL + 'images/pin24.png',
-  iconRetinaUrl: myURL + 'images/pin48.png',
-  iconSize: [29, 24],
-  iconAnchor: [9, 21],
-  popupAnchor: [0, -14],
-})
+
+
+var basemaps = {
+  OpenStreetMap : L.tileLayer.wms('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
+    layers: 'TOPO-WMS,OSM-Overlay-WMS'
+}),
+  Topography: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+      layers: 'TOPO-WMS'
+  }),
+
+  Places: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+      layers: 'OSM-Overlay-WMS'
+  }),
+
+  'Topography, then places': L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+      layers: 'TOPO-WMS,OSM-Overlay-WMS'
+  }),
+
+  'Places, then topography': L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
+      layers: 'OSM-Overlay-WMS,TOPO-WMS'
+  })
+};
+
+L.control.layers(basemaps).addTo(map);
+
+
+
+basemaps.Topography.addTo(map);
+
+var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/EHTP/wms', {
+    layers: 'Regions',
+}).addTo(map);
+
 
 
 function onEachFeature(feature, layer) {
@@ -411,6 +440,7 @@ $("#Recovered").click(function() {
   map.eachLayer(function (layer) {
     map.removeLayer(layer);
   });
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -452,7 +482,6 @@ function popDropdown(test)
     `<li><a class="dropdown-item countryName" id="worldwide" >worldwide</a></li>`+ 
     test.map(t => `
     <li><a class="dropdown-item countryName" id="${t.value}" >${t.name}</a></li>`).join('\n');
-    console.log("options : ",options)
     select.innerHTML = options
   });
 
@@ -502,7 +531,7 @@ const fetchdata = async() => {
       .then((response) => response.json())
       .then((data) => {
         countryCode === "worldwide"
-          ?  map.setView([0,0], 5) 
+          ?  map.setView([0,0], 4) 
           :  map.setView([data.countryInfo.lat,data.countryInfo.long], 5);
         $('.TotalCases').text(prettyPrintStat(data.cases))
         $('.DailyCases').text(data.todayCases)
