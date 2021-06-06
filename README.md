@@ -9,3 +9,7 @@ Shows Worldwide cases and Country Based cases.
 Line Chart shows fluctuations over days, hover around to see exact figures.
 
 Clickable Markers on Map show Country stats.
+
+## Demo of the application
+
+<img src="/AppDemo.png">
