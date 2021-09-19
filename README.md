@@ -15,3 +15,15 @@
 ## Demo of the application
 
 <img src="/AppDemo.png">
+
+## 🗣️ Author
+
+FARKADI OUSSAMA
+
+- Github: [@Farkadi06](https://github.com/Farkadi06)
+
+- LinkedIn: [FARKADI OUSSAMA](https://www.linkedin.com/in/oussama-farkadi/)
+
+## ⭐ Show your support
+
+Give a ⭐️ if you like this project!
